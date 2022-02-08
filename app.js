@@ -2,7 +2,7 @@ const express = require("express");
 // add postRouter
 // add commentRouter
 // add mentorRouter
-// add menteeRouter
+const filesRouter = require("./modules/files");
 const authRouter = require("./modules/auth");
 // add the configuration functions to connect with MongoDb, middlewares and sessionConfig 
 const { connectDb, middlewares, sessionConfig } = require("./config"); // from ./config/index.js
@@ -20,10 +20,12 @@ async function start() {
     sessionConfig(app);
     // routes
     authRouter(app);
-    // menteeRouter(app);
     // mentorRouter(app);
     // postRouter(app);
     // commentRouter(app);
+
+    // cloudinary
+    filesRouter(app);
 
     app.listen(PORT, () => console.log(`Server running at: ${PORT}`));
   } catch (err) {

@@ -8,10 +8,13 @@ const postSchema = new mongoose.Schema({
     title: String,
     content: String,
     comments: [{ // array of the comments ids for EACH post
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Comment" 
+		  type: mongoose.Schema.Types.ObjectId,
+		  ref: "Comment" 
 	}], 
-  image: { type: String },
+  imageUrl: {
+    type: String, 
+    default: "https://unsplash.com/photos/8OVDzMGB_kw",
+  },
   },
   {
     timestamps: true

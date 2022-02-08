@@ -20,10 +20,9 @@ const userSchema = new mongoose.Schema({
     // default: 'mentee'
     default: 'user',
   },  
-  image: {
-    type: String,
-    default:
-      "https://images.unsplash.com/photo-1514474959185-1472d4c4e0d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80",
+  imageUrl: {
+    type: String, 
+    default: "https://images.unsplash.com/photo-1514474959185-1472d4c4e0d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80",
   },
   title: { //CTO, Student, Senior Cloud and Software Architect 
     type: String,
