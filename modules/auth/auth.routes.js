@@ -7,6 +7,8 @@ const ROUTES = {
   logout: "/logout",
   isLoggedIn: "/login",
   role: "/role",
+  getUsers: "/users",
+  likedUsers: "/users/:userId/likes"
 };
 
 function authRouter(app) {
@@ -17,7 +19,10 @@ function authRouter(app) {
     .post(ROUTES.login, controllers.login)
     .post(ROUTES.logout, controllers.logout)
     .get(ROUTES.isLoggedIn, controllers.getLoggedInUser)
-    .get(ROUTES.role, controllers.getRole);
+    .get(ROUTES.role, controllers.getRole)
+    .get(ROUTES.getUsers, controllers.getUsers)
+    .post(ROUTES.likedUsers, controllers.likedUsers);
+
 
   app.use("/api", router);
 }

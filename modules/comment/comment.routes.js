@@ -6,7 +6,8 @@ const ROUTES = {
   getCommentById: "/posts/:postId/comment", // get - get details by id
   createComment: "/posts/:postId/comment", //post - create new comment 
   updateComment: "/posts/:postId/comment", //post - update 
-//   deleteComment: "/comments/:commentId", // post
+  likedComments: "/comments/:commentId/likes", //post - update 
+  deleteComment: "/comments/:commentId", // post
 };
 
 function commentRouter(app) {
@@ -17,7 +18,8 @@ function commentRouter(app) {
     .get(ROUTES.getCommentById, controllers.getCommentById)
     .post(ROUTES.createComment, controllers.createComment)
     .put(ROUTES.updateComment, controllers.updateComment)
-    // .delete(ROUTES.deleteComment, controllers.deleteTask);
+    .post(ROUTES.likedComments, controllers.likedComments)
+    .delete(ROUTES.deleteComment, controllers.deleteComment);
 
   app.use("/api", router);
 }

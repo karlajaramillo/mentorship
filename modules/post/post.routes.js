@@ -7,6 +7,7 @@ const ROUTES = {
   getPostById: "/posts/:postId", // get - get details by id
   createPost: "/posts", //post - create new comment 
   updatePost: "/posts/:postId", //post - update 
+  likedPosts: "/posts/:postId/likes", // post 
   deletePost: "/posts/:postId", // delete
 };
 
@@ -19,6 +20,7 @@ function postRouter(app) {
     .get(ROUTES.getPostById, controllers.getPostById)
     .post(ROUTES.createPost, controllers.createPost)
     .put(ROUTES.updatePost, controllers.updatePost)
+    .post(ROUTES.likedPosts, controllers.likedPosts)
     .delete(ROUTES.deletePost, controllers.deletePost);
 
   app.use("/api", router);

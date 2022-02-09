@@ -42,7 +42,7 @@ async function getCommentById(req, res) {
 }
 
 // Create a new Comment
-// post -> createComment: "/comments"
+// post -> posts/:postId/comment",
 // the form: content
 async function createComment(req, res) {
   try {
@@ -56,14 +56,22 @@ async function createComment(req, res) {
 
     // author -> id of user
     const comment = await Comment.create({content, author, postId});
-    console.log(comment)
-    console.log(comment.content, comment._id)
-    const postWithComment = await Post.findByIdAndUpdate(postId, {
+    //console.log(comment)
+   
+
+    //update in Post -> comments array
+    await Post.findByIdAndUpdate(postId, {
         $push: { comments: comment._id }, 
-        
         new: true, 
-      });
-    res.status(200).json(postWithComment).end();
+    });
+
+  // update in User -> with the comments array made by this user
+   await User.findByIdAndUpdate(author, { // in the User model
+      $push: {comments: comment._id}, // push the post_id into -> User.author.posts = [ ]
+      new: true 
+    });
+
+    res.status(200).json(comment).end();
   } catch (err) {
     res.status(400).json(err.message).end();
   }
@@ -88,26 +96,57 @@ async function updateComment(req, res) {
   }
 }
 
+// Like comments
+// likedComments: "/comments/:commentId/likes
+async function likedComments(req, res) {
+  try {
+    const userId = req.session?.user?._id;
+    const { commentId } = req.params;
+    if (!isObjectId(commentId)) {
+      res.status(400).json("Id not valid").end();
+    }
+    console.log('user', userId)
+    console.log('comment', commentId)
+    const update = await User.findByIdAndUpdate(userId, { // in the User model
+      $push: {likedComments: commentId}, // push the commentId into -> User.likedComments = [ ]
+      new: true 
+    }).lean();
+    
+  // Inside the Comment -> update array of likedBy with the userId that made the comment
+  const comment = await Comment.findByIdAndUpdate(commentId, {
+    $push: { likedBy: userId },
+    new: true,
+  }).lean();
+  console.log(comment)
 
-// //Delete a comment,
-// // post - deleteComment: "/comments/:commentId"
-// async function deleteComment(req, res) {
-//   try {
-//     const { commentId } = req.params;
-//     if (!isObjectId(commentId)) {
-//       res.status(400).json("Id not valid").end();
-//     }
-//     const comment = await Comment.findByIdAndDelete(commentId).lean();
-//     console.log(comment);
-//     res.status(200).json(comment).end();
-//   } catch (err) {
-//     res.status(400).json(err.message).end();
-//   }
-// }
+    res.status(200).json(comment).end();
+  } catch(err) {
+    res.status(400).json(err.message).end();
+  }
+}
+
+
+// Delete a comment,
+// post - deleteComment: "/comments/:commentId"
+async function deleteComment(req, res) {
+  try {
+    const { commentId } = req.params;
+    if (!isObjectId(commentId)) {
+      res.status(400).json("Id not valid").end();
+    }
+    const comment = await Comment.findByIdAndDelete(commentId).lean();
+    console.log(comment);
+    res.status(200).json(comment).end();
+  } catch (err) {
+    res.status(400).json(err.message).end();
+  }
+}
 
 module.exports = {
     getComments,
     getCommentById,
     createComment,
     updateComment,
+    likedComments,
+    deleteComment,
 };

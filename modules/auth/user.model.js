@@ -67,10 +67,6 @@ const userSchema = new mongoose.Schema({
     enum: ['Career', 'Web', 'Frontend', 'Full Stack', 'Backend', 'QA Testing', 'Software Engineering', 'Maching Learning', 'UX', 'Cloud', 'DevOps', 'Native apps', 'Architecture', 'Database', 'Kuberneter', 'Security', 'Aws', 'SaaS' ],
     default: 'Career'
   },
-  likeProfile: [{ 
-    type: Number,
-    default: 0, // like to the profile
-  }],
   linkedin: {
     type: String,
   },
@@ -97,14 +93,23 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment' // reference to the model
   }],
-  likePost: [{ // array of the posts ids created for each user/author
+  likedUsers: [{ // array of id of the profiles the user like
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User' // reference to the model
+  }],
+  likedPosts: [{ // array of id of the profiles the user like
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post' // reference to the model
   }],
-  likeComment: [{ // array of the posts ids created for each user/author
+  likedComments: [{ // array of id of the profiles the user like
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment' // reference to the model
   }],
+  likedBy: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }]
+
 }, 
 {
   timestamps: true

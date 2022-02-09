@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
   },
     title:{type: String, required: true },
     content: {type: String, required: true },
-    comments: [{ // array of the comments ids for EACH post
+  comments: [{ // array of the comments ids for EACH post
 		  type: mongoose.Schema.Types.ObjectId,
 		  ref: "Comment" 
 	}], 
@@ -15,6 +15,11 @@ const postSchema = new mongoose.Schema({
     type: String, 
     default: "https://unsplash.com/photos/8OVDzMGB_kw",
   },
+  likedBy: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }]
+  //
   },
   {
     timestamps: true
