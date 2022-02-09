@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Comment = require("./comment.model");
-const Post = require("../comment/comment.model");
+const Post = require("../post/post.model");
 const User = require("../auth/user.model");
 
 
@@ -46,13 +46,22 @@ async function getCommentById(req, res) {
 // the form: content
 async function createComment(req, res) {
   try {
-    const {content, postId} = req.body;
-    const userId = req.session?.user?._id;
-    const user = await User.findById(userId);
+    const { postId } = req.params;
+    console.log(postId)
+    const {content} = req.body; //from the form
+    console.log(content)
+    const author = req.session?.user?._id;
+    // const author = await User.findById(userId); //from the session
+    console.log(author);
 
-    const comment = await Comment.create({ content, userId });
+    // author -> id of user
+    const comment = await Comment.create({content, author, postId});
+    console.log(comment)
+    console.log(comment.content, comment._id)
     const postWithComment = await Post.findByIdAndUpdate(postId, {
-        $push: { comments: comment._id },
+        $push: { comments: comment._id }, 
+        
+        new: true, 
       });
     res.status(200).json(postWithComment).end();
   } catch (err) {

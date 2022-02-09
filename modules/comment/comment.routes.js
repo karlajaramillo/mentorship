@@ -3,9 +3,9 @@ const controllers = require("./comment.controllers");
 
 const ROUTES = {
   getComments: "/comments", //get - all comments by post
-  getCommentById: "/comments/:commentId", // get - get details by id
-  createComment: "/comments", //post - create new comment 
-  updateComment: "/comments/:commentId", //post - update 
+  getCommentById: "/posts/:postId/comment", // get - get details by id
+  createComment: "/posts/:postId/comment", //post - create new comment 
+  updateComment: "/posts/:postId/comment", //post - update 
 //   deleteComment: "/comments/:commentId", // post
 };
 
