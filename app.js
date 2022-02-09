@@ -4,6 +4,8 @@ const express = require("express");
 // add mentorRouter
 const filesRouter = require("./modules/files");
 const authRouter = require("./modules/auth");
+const commentRouter = require("./modules/comment"); // by default takes -> comment/index.js
+const postRouter = require("./modules/post")
 // add the configuration functions to connect with MongoDb, middlewares and sessionConfig 
 const { connectDb, middlewares, sessionConfig } = require("./config"); // from ./config/index.js
 
@@ -19,10 +21,10 @@ async function start() {
     // authentication
     sessionConfig(app);
     // routes
-    authRouter(app);
+    authRouter(app); //auth routes
     // mentorRouter(app);
-    // postRouter(app);
-    // commentRouter(app);
+    postRouter(app); // post route
+    commentRouter(app); // comment route
 
     // cloudinary
     filesRouter(app);
