@@ -8,6 +8,7 @@ const ROUTES = {
   isLoggedIn: "/login",
   role: "/role",
   getUsers: "/users",
+  getUserById: "/users/:userId",
   likedUsers: "/users/:userId/likes"
 };
 
@@ -21,6 +22,7 @@ function authRouter(app) {
     .get(ROUTES.isLoggedIn, controllers.getLoggedInUser)
     .get(ROUTES.role, controllers.getRole)
     .get(ROUTES.getUsers, controllers.getUsers)
+    .get(ROUTES.getUserById, controllers.getUserById)
     .post(ROUTES.likedUsers, controllers.likedUsers);
 
 
