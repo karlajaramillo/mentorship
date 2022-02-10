@@ -22,7 +22,6 @@ async function start() {
     sessionConfig(app);
     // routes
     authRouter(app); //auth routes
-    // mentorRouter(app);
     postRouter(app); // post route
     commentRouter(app); // comment route
 

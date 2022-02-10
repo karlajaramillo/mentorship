@@ -108,6 +108,14 @@ const userSchema = new mongoose.Schema({
   likedBy: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
+  }],
+  bookedMentor: [{ // List of Mentors - that a Mentee booked -> Only Mentee can see this page
+    type: mongoose.Schema.Types.ObjectId, // Mentor id that was booked
+    ref: "User"
+  }],
+  bookedMentorBy: [{ // List of Mentees -> Only Mentor can see this page
+    type: mongoose.Schema.Types.ObjectId, //Mentees id that booked a Mentor
+    ref: "User"
   }]
 
 }, 

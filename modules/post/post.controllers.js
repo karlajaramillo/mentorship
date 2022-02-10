@@ -48,7 +48,7 @@ async function getPosts(req, res) {
 }
 
 // Get all details of the post
-// get -> getPostsByAuthor - /posts",
+// get -> getPostsByAuthor - /posts/:postId",
 async function getPostById(req, res) {
   try {
     const { postId } = req.params;
@@ -98,7 +98,7 @@ async function createPost(req, res) {
     console.log(userId);
     //console.log(author)
 
-    const update = await User.findByIdAndUpdate(userId, {
+    await User.findByIdAndUpdate(userId, {
       // in the User model
       $push: { posts: post._id }, // push the post_id into -> User.author.posts = [ ]
       new: true,

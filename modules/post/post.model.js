@@ -5,8 +5,8 @@ const postSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User" 
   },
-    title:{type: String, required: true },
-    content: {type: String, required: true },
+  title:{type: String, required: true },
+  content: {type: String, required: true },
   comments: [{ // array of the comments ids for EACH post
 		  type: mongoose.Schema.Types.ObjectId,
 		  ref: "Comment" 

@@ -9,7 +9,9 @@ const ROUTES = {
   role: "/role",
   getUsers: "/users",
   getUserById: "/users/:userId",
-  likedUsers: "/users/:userId/likes"
+  updateUser: "/users/:userId/profile",
+  likedUsers: "/users/:userId/likes",
+  bookedMentor: "/users/:userId/mentor" // this is Mentor userId
 };
 
 function authRouter(app) {
@@ -20,10 +22,12 @@ function authRouter(app) {
     .post(ROUTES.login, controllers.login)
     .post(ROUTES.logout, controllers.logout)
     .get(ROUTES.isLoggedIn, controllers.getLoggedInUser)
+    .put(ROUTES.updateUser, controllers.updateUser)
     .get(ROUTES.role, controllers.getRole)
     .get(ROUTES.getUsers, controllers.getUsers)
     .get(ROUTES.getUserById, controllers.getUserById)
-    .post(ROUTES.likedUsers, controllers.likedUsers);
+    .post(ROUTES.likedUsers, controllers.likedUsers)
+    .post(ROUTES.bookedMentor, controllers.bookedMentor)
 
 
   app.use("/api", router);
