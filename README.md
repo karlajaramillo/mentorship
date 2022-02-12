@@ -46,6 +46,47 @@ npm run dev
 |	POST	|	api/comments/:commentId/likes	|	Like a specific comment	|
 |	DELETE	|	api/comments/:commentId	|	Delete a specific comment |
 
+# Models
+
+User model
+ 
+```
+email: String
+password: String
+imageUrl: String / Default
+name: String 
+role: enum ["mentor", "mentee", "user"]
+title: String 
+organization: String 
+bio: String 
+achievement: String 
+menteeMotivation: String 
+mentorMotivation: String 
+field: enum ['Career', 'Web', 'Frontend', 'Full Stack', 'Backend', 'QA Testing', 'Software Engineering', 'Maching Learning', 'UX', 'Cloud', 'DevOps', 'Native apps', 'Architecture', 'Database', 'Kuberneter', 'Security', 'Aws', 'SaaS' ],
+bookedMentor: mongoose.Schema.Types.ObjectId, <User>
+bookedMentorBy: mongoose.Schema.Types.ObjectId, <User>
+posts: Array
+comments: Array
+```
+
+Post model
+
+```
+author: ObjectId<User>
+title: String
+comments: ObjectId<Comments>
+likedBy: ObjectId<User>
+image: String / Default 
+``` 
+
+Comments model
+
+```
+autor: ObjectId<User>
+content: String
+comments: String
+likedBy: ObjectId<User>
+``` 
 
 # Technologies
 <ul >
