@@ -392,6 +392,23 @@ async function updateRole(req, res) {
 //   new: true,
 // }).lean();
 
+// Get mentors
+// /api/mentors
+//http://localhost:4000/api/mentors
+async function getMentors(req, res) {
+  try {
+    const user = req.session.user;
+    if (!user) {
+      return res.status(400).json(null);
+    }
+    const mentors = await User.find({role: 'mentor'}).lean();
+    console.log(mentors);
+    res.status(200).json(mentors).end();
+  } catch (err) {
+    res.status(500).json({ error: err.messages }).end();
+  }
+}
+
 
 
 
@@ -407,6 +424,7 @@ module.exports = {
   likedUsers,
   bookedMentor,
   updateRole,
+  getMentors,
 };
 
 

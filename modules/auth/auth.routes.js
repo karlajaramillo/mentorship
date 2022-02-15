@@ -13,6 +13,7 @@ const ROUTES = {
   likedUsers: "/users/:userId/likes",
   bookedMentor: "/users/:userId/mentor", // this is Mentor userId,
   updateRole: "/profile/:role",
+  getMentors: "/mentors", // get all mentors
 };
 
 function authRouter(app) {
@@ -30,6 +31,8 @@ function authRouter(app) {
     .post(ROUTES.likedUsers, controllers.likedUsers)
     .post(ROUTES.bookedMentor, controllers.bookedMentor)
     .put(ROUTES.updateRole, controllers.updateRole)
+    .get(ROUTES.getMentors, controllers.getMentors)
+    
 
 
   app.use("/api", router);

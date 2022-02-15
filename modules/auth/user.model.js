@@ -62,11 +62,12 @@ const userSchema = new mongoose.Schema({
   country: {
     type: String,
   },
-  field: {
+  field: [{
     type:String,
-    enum: ['Career', 'Web', 'Frontend', 'Full Stack', 'Backend', 'QA Testing', 'Software Engineering', 'Maching Learning', 'UX', 'Cloud', 'DevOps', 'Native apps', 'Architecture', 'Database', 'Kuberneter', 'Security', 'Aws', 'SaaS' ],
+    enum: ['Career', 'Web', 'Frontend', 'Full Stack', 'Backend', 'QA Testing', 'Software Engineering', 'Maching Learning', 'UX', 'Cloud', 'DevOps', 'Native apps', 'Architecture', 'Database', 'Kubernetes', 'Security', 'Aws', 'SaaS' ],
     default: 'Career'
-  },
+    },
+  ],
   linkedin: {
     type: String,
   },
