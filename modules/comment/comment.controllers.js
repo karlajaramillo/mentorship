@@ -13,11 +13,11 @@ function isObjectId(id) {
 async function getComments(req, res) {
   try {
     const userId = req.session?.user?._id;
-    console.log(req.session.user);
+    //console.log(req.session.user);
     //user: { email: 'k300@mail.com', _id: '62005ce44d0e0fd37c6e7711' }
     const comments = await Comment.find().lean(); 
     //const comments = await Comment.find({ author: userId }).lean(); 
-    console.log(comments);
+    //console.log(comments);
     res.status(200).json(comments).end();
   } catch (err) {
     res.status(400).json(err.message).end();
@@ -107,7 +107,7 @@ async function likedComments(req, res) {
     }
     console.log('user', userId)
     console.log('comment', commentId)
-    const update = await User.findByIdAndUpdate(userId, { // in the User model
+    await User.findByIdAndUpdate(userId, { // in the User model
       $push: {likedComments: commentId}, // push the commentId into -> User.likedComments = [ ]
       new: true 
     }).lean();

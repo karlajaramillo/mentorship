@@ -14,13 +14,20 @@ function isMongoError(error) {
 // api/signup
 async function signup(req, res) {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { email, password, role } = req.body;
+    if (!email || !password || !role) {
       return res
         .status(400)
         .json({ message: "Email and password are required" });
     }
+    // const { email, password } = req.body;
+    // if (!email || !password) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Email and password are required" });
+    // }
     const hasUser = await User.findOne({ email }).lean();
+
 
     if (hasUser) {
       return res.status(400).json({ message: "User already exists" });
@@ -29,11 +36,12 @@ async function signup(req, res) {
     const salRounds = 10;
     const salt = await bcrypt.genSalt(salRounds);
     const hashedPassword = await bcrypt.hash(password, salt);
-    const user = await User.create({ email, password: hashedPassword });
-    const userWithoutPass = { email: user.email, _id: user._id };
+    const user = await User.create({ email, password: hashedPassword, role: role });
+    //const user = await User.create({ email, password: hashedPassword });
+    const userWithoutPass = { email: user.email, _id: user._id, role: user.role };
 
     req.session.user = userWithoutPass;
-
+    
     return res.status(200).json(userWithoutPass);
   } catch (error) {
     if (validationError(error)) {
@@ -69,7 +77,7 @@ async function login(req, res) {
       const userWithoutPass = {
         email: user.email,
         _id: user._id,
-        role: user.role,
+        role: user?.role, //set role 
       };
       console.log(userWithoutPass);
       req.session.user = userWithoutPass;
@@ -280,7 +288,7 @@ async function likedUsers(req, res) {
 //Put 
 
 // Update profile
-// put - /api/user/:userId/mentor
+// Post - /api/user/:userId/mentor
 // Mentee goes to --> users and click on one Mentor--> user/:userId
 async function bookedMentor(req, res) {
   try {
@@ -348,7 +356,27 @@ async function bookedMentor(req, res) {
   }
 }
 
+// UPDATE - PUT - /api/profile/:role
+async function updateRole(req, res) { 
+  try {
+    const currentUserId = req.session?.user?._id;
+    const {role} = req.params;
+    if (!currentUserId) {
+      return res.status(400).json(null);
+    }
+    const updatedRole = await User.findByIdAndUpdate(currentUserId, {
+      role: `${role}`
+    }, {
+      new: true,
+    }).lean();
+    console.log(updatedRole)
 
+    res.status(200).json(updatedRole).end();
+
+  } catch(err) {
+    res.status(500).json({error:err.messages}).end();
+  }
+}
 
 // Mentee --->> Book the Mentor
 // await User.findByIdAndUpdate(currentUserId, { // current user logged in
@@ -377,7 +405,8 @@ module.exports = {
   getUsers,
   getUserById,
   likedUsers,
-  bookedMentor
+  bookedMentor,
+  updateRole,
 };
 
 

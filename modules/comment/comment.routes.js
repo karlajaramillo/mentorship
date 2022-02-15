@@ -3,11 +3,12 @@ const controllers = require("./comment.controllers");
 
 const ROUTES = {
   getComments: "/comments", //get - all comments by post
-  getCommentById: "/posts/:postId/comment", // get - get details by id
+  // getCommentById: "/posts/:postId/comment", // get - get details by id
+  getCommentById: "/comments/:commentId", // get - get a comment
   createComment: "/posts/:postId/comment", //post - create new comment 
-  updateComment: "/posts/:postId/comment", //post - update 
-  likedComments: "/comments/:commentId/likes", //post - update 
-  deleteComment: "/comments/:commentId", // post
+  updateComment: "/comments/:commentId", // put - update a comment
+  likedComments: "/comments/:commentId/likes", //post - like a comment
+  deleteComment: "/comments/:commentId", // delete a comment
 };
 
 function commentRouter(app) {

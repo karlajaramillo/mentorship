@@ -3,10 +3,10 @@ const controllers = require("./post.controllers");
 
 const ROUTES = {
   getPosts: "/posts", //get - all posts by post
-  getPostsByAuthor: "/posts/byAuthor",
+  getPostsByAuthor: "/posts/:userId/author",
   getPostById: "/posts/:postId", // get - get details by id
   createPost: "/posts", //post - create new comment 
-  updatePost: "/posts/:postId", //post - update 
+  updatePost: "/posts/:postId", // put - update 
   likedPosts: "/posts/:postId/likes", // post 
   deletePost: "/posts/:postId", // delete
 };

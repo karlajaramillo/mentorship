@@ -13,13 +13,16 @@ function isObjectId(id) {
 }
 
 // Get all posts by userId
-// get -> getPostsByAuthor - /posts",
+// get -> getPostsByAuthor - /posts/:userId/author",
 async function getPostsByAuthor(req, res) {
   try {
-    const userId = req.session?.user?._id;
+    const currentUserId = req.session?.user?._id;
     console.log(req.session.user);
-    //user: { email: 'k300@mail.com', _id: '62005ce44d0e0fd37c6e7711' }
 
+    const { userId } = req.params;
+    console.log('user', userId)
+
+    //user: { email: 'k300@mail.com', _id: '62005ce44d0e0fd37c6e7711' }
     const posts = await Post.find({ author: userId })
       .populate("comments")
       .lean();
@@ -30,14 +33,12 @@ async function getPostsByAuthor(req, res) {
 }
 
 // Get all posts
-// get -> getPostsByAuthor - /posts",
+// get -> getPosts - /posts",
 async function getPosts(req, res) {
   try {
     const userId = req.session?.user?._id;
-    console.log(req.session.user);
     //user: { email: 'k300@mail.com', _id: '62005ce44d0e0fd37c6e7711' }
 
-    //const posts = await Post.find({ author: userId })
     const posts = await Post.find()
       .populate("author comments") //--> we are saying: give me whole user object with this ID (author represents an ID in our case)
       .lean();
@@ -48,17 +49,22 @@ async function getPosts(req, res) {
 }
 
 // Get all details of the post
-// get -> getPostsByAuthor - /posts/:postId",
+// get -> getPostsById - /posts/:postId",
 async function getPostById(req, res) {
   try {
+    //const userId = req.session?.user?._id;
     const { postId } = req.params;
+    console.log(postId)
     if (!isObjectId(postId)) {
       res.status(400).json("Id not valid").end();
     }
 
+
+    console.log('postId', postId)
+    
     const post = await Post.findById(postId)
       .populate("author comments likedBy")
-      // inside 'author' populate the information of the user
+      //inside 'author' populate the information of the user
       // .populate({
       //   // we are populating author in the previously populated comments
       //   path: "comments",
@@ -66,19 +72,25 @@ async function getPostById(req, res) {
       //     path: "author", // gives all the 'author', which is the whole user--> from 'User model'
       //     model: "User", // use the 'User' model information
       //   },
-      // })
+      //})
       .lean();
-    console.log(post);
+    console.log('my post', post);
 
-    const likedBy = post.likedBy.map(item => {
+    const likedBy = post.likedBy?.map(item => {
       return {
         id: item._id,
         name: item.name,
         email: item.email
       }
     })
+    console.log(post)
+    //console.log(likedBy)
+    if (post.likedBy) {
 
-    res.status(200).json({...post, likedBy}).end();
+      res.status(200).json({...post, likedBy}).end();
+    }
+
+    res.status(200).json(post).end();
   } catch (err) {
     res.status(400).json(err.message).end();
   }
