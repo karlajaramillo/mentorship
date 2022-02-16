@@ -65,16 +65,16 @@ async function getPostById(req, res) {
     console.log('postId', postId)
     
     const post = await Post.findById(postId)
-      .populate("author comments likedBy")
-      //inside 'author' populate the information of the user
-      // .populate({
-      //   // we are populating author in the previously populated comments
-      //   path: "comments",
-      //   populate: {
-      //     path: "author", // gives all the 'author', which is the whole user--> from 'User model'
-      //     model: "User", // use the 'User' model information
-      //   },
-      //})
+       .populate("author comments likedBy")
+      // //inside 'author' populate the information of the user
+      .populate({
+        // we are populating author in the previously populated comments
+        path: "comments",
+        populate: {
+          path: "author", // gives all the 'author', which is the whole user--> from 'User model'
+          model: "User", // use the 'User' model information
+        },
+      })
       .lean();
     console.log('my post', post);
 
