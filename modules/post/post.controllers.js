@@ -24,6 +24,7 @@ async function getPostsByAuthor(req, res) {
 
     //user: { email: 'k300@mail.com', _id: '62005ce44d0e0fd37c6e7711' }
     const posts = await Post.find({ author: userId })
+      .sort({ createdAt: -1 } )
       .populate("comments")
       .lean();
     res.status(200).json(posts).end();
@@ -40,6 +41,7 @@ async function getPosts(req, res) {
     //user: { email: 'k300@mail.com', _id: '62005ce44d0e0fd37c6e7711' }
 
     const posts = await Post.find()
+      .sort({ createdAt: -1})
       .populate("author comments") //--> we are saying: give me whole user object with this ID (author represents an ID in our case)
       .lean();
     res.status(200).json(posts).end();

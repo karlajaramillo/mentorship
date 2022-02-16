@@ -42,27 +42,27 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=755&q=80',
       },
-      stack: {
+      stack: [{ //array of stack
         type:String,
         enum: ['JavaScript', 'React', 'NodeJS', 'ExpressJS', 'Ruby', 'MongoDB', 'SQL', 'Vue', 'Next', 'Nuxt', 'Nest', 'HTML', 'CSS', 'Python', 'Angular', 'Redux', 'GraphQL', 'Java', 'Jest', 'React Testing Library'],
-      }
+      }]
     }
   ],
   menteeMotivation: {
     type: String,
   },
-  mentorService: {
+  mentorService: [{ //array of services
     type:String,
     enum: ['Intro Session', 'CV Review', 'Work Review', 'Regular Calls', 'Chat', 'Study Plan', 'Interview Preparation', 'Tasks', 'Exercises' ],
     default: 'Intro Session'
-  },
+  }],
   organization: {
     type: String,
   },
   country: {
     type: String,
   },
-  field: [{
+  field: [{ // array of fields
     type:String,
     enum: ['Career', 'Web', 'Frontend', 'Full Stack', 'Backend', 'QA Testing', 'Software Engineering', 'Maching Learning', 'UX', 'Cloud', 'DevOps', 'Native apps', 'Architecture', 'Database', 'Kubernetes', 'Security', 'Aws', 'SaaS' ],
     default: 'Career'
