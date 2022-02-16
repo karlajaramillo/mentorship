@@ -8,7 +8,7 @@ const ROUTES = {
 
 function filesRouter(app) {
   const router = express.Router();
-
+  // filUploader --> middleware: it's going to create my request .file, where the path of the url of the image 
   router.post(ROUTES.uploadImage, fileUploader, controllers.updloadImage);
 
   app.use("/api", router);
