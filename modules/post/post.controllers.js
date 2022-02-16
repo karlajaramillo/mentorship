@@ -78,19 +78,19 @@ async function getPostById(req, res) {
       .lean();
     console.log('my post', post);
 
-    const likedBy = post.likedBy?.map(item => {
-      return {
-        id: item._id,
-        name: item.name,
-        email: item.email
-      }
-    })
-    console.log(post)
-    //console.log(likedBy)
-    if (post.likedBy) {
+    // const likedBy = post?.likedBy?.map(item => {
+    //   return {
+    //     id: item?._id,
+    //     name: item?.name,
+    //     email: item?.email
+    //   }
+    // })
+    // console.log(post)
+    // //console.log(likedBy)
+    // if (post?.likedBy) {
 
-      res.status(200).json({...post, likedBy}).end();
-    }
+    //   res.status(200).json({...post, likedBy}).end();
+    // }
 
     res.status(200).json(post).end();
   } catch (err) {

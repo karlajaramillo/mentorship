@@ -46,6 +46,9 @@ async function getCommentById(req, res) {
 // the form: content
 async function createComment(req, res) {
   try {
+    //req.params -> { postId: postId }
+    //req.body -> { content: content }
+
     const { postId } = req.params;
     console.log(postId)
     const {content} = req.body; //from the form
@@ -76,6 +79,7 @@ async function createComment(req, res) {
     res.status(400).json(err.message).end();
   }
 }
+
 
 // Update a comment
 // post -> updateComment: "/comments/:commentId"
