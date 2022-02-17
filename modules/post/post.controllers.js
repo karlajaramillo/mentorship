@@ -2,7 +2,7 @@
 // getPostById: "/posts/:postId", // get - get details by id
 // createPost: "/posts", /post - create new comment
 // updatePost: "/posts/:postId", //post - update
-// deletePost: "/posts/:postId", // post
+
 
 const Post = require("./post.model");
 const User = require("../auth/user.model");
