@@ -12,8 +12,8 @@ function sessionConfig(app) {
   app.use(
     session({
       secret: SESSION_SECRET,
-      resave: true,
-      saveUninitialized: false,
+      resave: false,
+      saveUninitialized: true,
       store: MongoStore.create({
         mongoUrl: MONGODB_URI,
       }),
