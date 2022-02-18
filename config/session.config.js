@@ -14,7 +14,7 @@ function sessionConfig(app) {
       secret: SESSION_SECRET,
       // re save the cookie any time there is a change in it
       resave: true,
-      // save the cookie till there is something attatched to it
+      // don't save the cookie till there is something attatched to it
       saveUninitialized: false,
       store: MongoStore.create({
         mongoUrl: MONGODB_URI,
