@@ -103,6 +103,10 @@ async function getPostById(req, res) {
 async function createPost(req, res) {
   try {
     const userId = req.session?.user?._id;
+    //const { imageUrl} = req.body;
+    if (!req.body.imageUrl) {
+      req.body.imageUrl = "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+    }
     const post = await Post.create({ ...req.body, author: userId });
     // when the new post is created, the user needs to be found and its posts updated with the
     // ID of newly created post
@@ -110,7 +114,9 @@ async function createPost(req, res) {
     console.log(post._id);
     console.log(post.author);
     console.log(userId);
+    console.log(post.imageUrl);
     //console.log(author)
+ 
 
     await User.findByIdAndUpdate(userId, {
       // in the User model
