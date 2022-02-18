@@ -37,8 +37,9 @@ async function signup(req, res) {
     const salt = await bcrypt.genSalt(salRounds);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const imageUrlBasic = "https://images.unsplash.com/photo-1514474959185-1472d4c4e0d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80";
-    const user = await User.create({ email, password: hashedPassword, role: role , imageUrl: imageUrlBasic});
+    const user = await User.create({ email, password: hashedPassword, role: role });
+    //const user = await User.create({ email, password: hashedPassword, role: role , imageUrl: imageUrlBasic});
+
     //const user = await User.create({ email, password: hashedPassword });
     const userWithoutPass = { email: user.email, _id: user._id, role: user.role };
 
