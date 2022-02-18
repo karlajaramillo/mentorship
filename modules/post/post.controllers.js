@@ -37,8 +37,8 @@ async function getPostsByAuthor(req, res) {
 // get -> getPosts - /posts",
 async function getPosts(req, res) {
   try {
-    const userId = req.session?.user?._id;
-    //user: { email: 'k300@mail.com', _id: '62005ce44d0e0fd37c6e7711' }
+    // const userId = req.session?.user?._id;
+    // //user: { email: 'k300@mail.com', _id: '62005ce44d0e0fd37c6e7711' }
 
     const posts = await Post.find()
       .sort({ createdAt: -1})
