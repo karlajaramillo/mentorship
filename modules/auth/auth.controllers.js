@@ -174,7 +174,7 @@ async function getUserById(req, res) {
     console.log(userId);
 
     const userData = await User.findById(userId)
-      .populate("posts comments likedUsers likedComments likedPosts likedBy")
+      .populate("posts comments likedUsers likedComments likedPosts likedBy bookedMentor bookedMentorBy")
       .lean();
     console.log(userData);
     //console.log(userData.likedBy.name)
@@ -325,6 +325,12 @@ async function bookedMentor(req, res) {
     //--> push the 'id' of the mentor inside my array of Mentors --> bookedMentor = []
     console.log('userId or mentor', userId)
     console.log('currentUserId',currentUserId )
+
+    const mentorsArray = currentUser.bookedMentor.map(item => item._id);
+    if(mentorsArray.includes(userId)) {
+      console.log('repeated')
+      return;
+    }
 
     await User.findByIdAndUpdate(currentUserId, {
       $push: {bookedMentor: userId},
