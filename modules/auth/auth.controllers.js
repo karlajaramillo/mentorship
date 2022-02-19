@@ -291,7 +291,8 @@ async function likedUsers(req, res) {
 //Put 
 
 // Update profile
-// Post - /api/user/:userId/mentor
+// Post - /api/users/:userId/mentor
+// bookedMentor: "/users/:userId/mentor", // this is Mentor userId,
 // Mentee goes to --> users and click on one Mentor--> user/:userId
 async function bookedMentor(req, res) {
   try {
@@ -322,6 +323,9 @@ async function bookedMentor(req, res) {
       return res.status(200).json({ message: "Sorry! you need to be a Mentee!" });
     }
     //--> push the 'id' of the mentor inside my array of Mentors --> bookedMentor = []
+    console.log('userId or mentor', userId)
+    console.log('currentUserId',currentUserId )
+
     await User.findByIdAndUpdate(currentUserId, {
       $push: {bookedMentor: userId},
       new: true,
