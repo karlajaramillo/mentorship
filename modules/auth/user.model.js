@@ -64,7 +64,7 @@ const userSchema = new mongoose.Schema({
   },
   field: [{ // array of fields
     type:String,
-    enum: ['Career', 'Web', 'Frontend', 'Full Stack', 'Backend', 'QA Testing', 'Software Engineering', 'Maching Learning', 'UX', 'Cloud', 'DevOps', 'Native apps', 'Architecture', 'Database', 'Kubernetes', 'Security', 'Aws', 'SaaS' ],
+    enum: ['Career', 'Web','TypeScript' ,'Frontend', 'Full Stack', 'Backend', 'QA Testing', 'Software Engineering', 'Maching Learning', 'UX', 'Cloud', 'DevOps', 'Native apps', 'Architecture', 'Database', 'Kubernetes', 'Security', 'Aws', 'SaaS' ],
     default: 'Career'
     },
   ],
